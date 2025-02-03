@@ -64,7 +64,7 @@
     } \
     \
     static inline void function_prefix ## _shrink_to_fit(type_name* list) { \
-        list->buffer = realloc(list->buffer, (list->count == 0 ? 1 : list->count) * sizeof(value_type)); \
+        list->buffer = (value_type*) realloc(list->buffer, (list->count == 0 ? 1 : list->count) * sizeof(value_type)); \
         list->capacity = list->count == 0 ? 1 : list->count; \
     } \
 
