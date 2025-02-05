@@ -96,7 +96,7 @@
     \
     bool function_prefix ## _add(type_name* list, value_type value) { \
         if(list->count == list->capacity) { \
-            list->capacity *= 2; \
+            list->capacity = (list->capacity == 0) ? 2 : (list->capacity * 2); \
             value_type* buffer = realloc(list->buffer, list->capacity * sizeof(value_type)); \
             if(!buffer) \
                 return false; \
@@ -111,7 +111,7 @@
         if(index == list->count) \
             return function_prefix ## _add(list, value); \
         if(list->count == list->capacity) { \
-            list->capacity *= 2; \
+            list->capacity = (list->capacity == 0) ? 2 : (list->capacity * 2); \
             value_type* buffer = realloc(list->buffer, list->capacity * sizeof(value_type)); \
             if(!buffer) \
                 return false; \
