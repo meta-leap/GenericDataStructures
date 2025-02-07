@@ -94,14 +94,14 @@
   bool function_prefix##_init(type_name* list) {                                                           \
     list->capacity = 4;                                                                                    \
     list->count    = 0;                                                                                    \
-    return (list->buffer = malloc(4 * sizeof(value_type))) != NULL;                                        \
+    return (list->buffer = aligned_alloc(alignof(value_type), 4 * sizeof(value_type))) != NULL;            \
   }                                                                                                        \
                                                                                                            \
   bool function_prefix##_init_capacity(type_name* list, unsigned int capacity) {                           \
     assert(capacity);                                                                                      \
     list->capacity = capacity;                                                                             \
     list->count    = 0;                                                                                    \
-    return (list->buffer = malloc(capacity * sizeof(value_type))) != NULL;                                 \
+    return (list->buffer = aligned_alloc(alignof(value_type), capacity * sizeof(value_type))) != NULL;     \
   }                                                                                                        \
                                                                                                            \
   bool function_prefix##_add(type_name* list, value_type value) {                                          \
