@@ -107,7 +107,9 @@
   bool function_prefix##_add(type_name* list, value_type value) {                                          \
     if (list->count == list->capacity) {                                                                   \
       list->capacity     = (list->capacity == 0) ? 2 : (list->capacity * 2);                               \
-      value_type* buffer = realloc(list->buffer, list->capacity * sizeof(value_type));                     \
+      value_type* buffer = ((list->buffer == nullptr) || (list->count == 0))                               \
+                               ? aligned_alloc(alignof(value_type), list->capacity * sizeof(value_type))   \
+                               : realloc(list->buffer, list->capacity * sizeof(value_type));               \
       if (!buffer)                                                                                         \
         return false;                                                                                      \
       list->buffer = buffer;                                                                               \
